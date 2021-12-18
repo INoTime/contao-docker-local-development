@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  database:
+    image: mysql:5.7
+    container_name: database
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin1234
+      - MYSQL_PASSWORD=admin1234
+      - MYSQL_DATABASE=contao
+      - MYSQL_USER=admin
+    networks:
+      backend:
+        ipv4_address: 192.168.0.2
+    ports:
+      - "6033:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - database
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    networks:
+      backend:
+        ipv4_address: 192.168.0.3
+    ports:
+      - "8081:80"
+
+  webserver:
+    build: .
+    container_name: webserver
+    volumes:
+      - docroot:/var/www/html/contao
+    networks:
+      backend:
+        ipv4_address: 192.168.0.4
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+
+  mail:
+    image: mailhog/mailhog
+    container_name: mail
+    ports:
+      - "1025:1025" # smtp server
+      - "8025:8025" # web ui
+
+volumes:
+  # \\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\contao_docroot\_data
+  docroot:
+    driver: local
+
+networks:
+  backend:
+    ipam:
+      config:
+        - subnet: 192.168.0.0/8
