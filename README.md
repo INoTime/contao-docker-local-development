@@ -13,7 +13,7 @@ If you want to build the image on your own, you can use the command
 "docker build ." in the directory of the Dockerfile.
 
 <h3>All services were finally started</h3>
-When all services were finally started you can access the several services 
+When all services were finally started you can access the several services<br/>
 - the Contao CMS web server is running on https://localhost:4433 or 
 http://localhost:8080<br/>
 - phpMyAdmin is running on http://localhost:8081<br/>
