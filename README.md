@@ -15,10 +15,10 @@ If you want to build the image on your own, you can use the command
 <h3>All services were finally started</h3>
 When all services were finally started you can access the several services 
 - the Contao CMS web server is running on https://localhost:4433 or 
-http://localhost:8080
-- phpMyAdmin is running on http://localhost:8081
-- the database and the Contao web server are in the same internal network
-- the database IP address is 192.168.0.2 
+http://localhost:8080<br/>
+- phpMyAdmin is running on http://localhost:8081<br/>
+- the database and the Contao web server are in the same internal network<br/>
+- the database IP address is 192.168.0.2<br/>
 
 <h3>After install</h3>
 After successfully installed Contao you can access the Contao Backend via 
@@ -27,7 +27,8 @@ https://localhost:4433/app.php/contao or http://localhost:8080/app.php/contao
 <h3>Access the Contao root directory</h3>
 On Windows machines, you can access the Contao root directory from
 
-    \\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\contao_docroot\_data
+    \\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\{dir}_docroot\_data
+please change "{dir}" to your directory where the docker-compose file is placed.
 
 <h2>Credentials</h2>
 
