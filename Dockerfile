@@ -1,6 +1,7 @@
 FROM php:7.4-apache
 
 RUN a2enmod rewrite
+RUN a2enmod ssl
 
 RUN apt-get update
 RUN apt-get install -y libzip-dev git wget --no-install-recommends
@@ -24,10 +25,16 @@ RUN COMPOSER_MEMORY_LIMIT=-1 composer create-project contao/managed-edition:4.9 
 COPY Contao/composer.json contao
 COPY Contao/web/contao-manager.phar.php contao/web
 
-COPY docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
-COPY docker/apache2.conf /etc/apache2/apache2.conf
-
 RUN chown www-data:www-data contao -R
+
+COPY docker/etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY docker/etc/apache2/apache2.conf /etc/apache2/apache2.conf
+
+RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj \
+    "/C=DE/ST=None/L=None/O=INoInvestigation/OU=IT/CN=localhost" -keyout ./ssl.key -out ./ssl.crt
+RUN mkdir /etc/apache2/ssl
+RUN cp ./ssl.key /etc/apache2/ssl/ssl.key
+RUN cp ./ssl.crt /etc/apache2/ssl/ssl.crt
 
 CMD ["apache2-foreground"]
 
