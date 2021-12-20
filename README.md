@@ -4,7 +4,7 @@ This Docker image is to run Contao CMS in Docker.
 <h2>How to use it</h2>
 If you use the docker-compose file (you can find it 
 <a href="https://github.com/INoTime/contao-docker-local-development" target="_blank">here</a>), 
-all needed services for Contao will start automatically.
+all needed services for Contao will start automatically (you also have to download the ".env" file ).
 
 If you want to start only the Contao image you can pull it from Docker 
 Hub via "docker pull inotime/contao" or directly run it with 
