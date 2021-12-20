@@ -18,13 +18,14 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
+    restart: 'always'
     links:
       - database
     environment:
       PMA_HOST: database
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
-    restart: always
+      UPLOAD_LIMIT: 200M
     networks:
       backend:
         ipv4_address: 192.168.0.3
@@ -32,7 +33,7 @@ services:
       - "8081:80"
 
   webserver:
-    image: inotime/contao
+    build: .
     container_name: webserver
     volumes:
       - docroot:/var/www/html/contao
@@ -46,6 +47,8 @@ services:
       - database
     dns:
       - 8.8.8.8
+    env_file:
+      - .env
 
   mail:
     image: mailhog/mailhog

@@ -29,13 +29,17 @@ RUN chown www-data:www-data contao -R
 
 COPY docker/etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 COPY docker/etc/apache2/apache2.conf /etc/apache2/apache2.conf
+COPY docker/usr/local/etc/php/php.ini /usr/local/etc/php
 
 RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj \
     "/C=DE/ST=None/L=None/O=INoInvestigation/OU=IT/CN=localhost" -keyout ./ssl.key -out ./ssl.crt
 RUN mkdir /etc/apache2/ssl
 RUN cp ./ssl.key /etc/apache2/ssl/ssl.key
+RUN rm ./ssl.key
 RUN cp ./ssl.crt /etc/apache2/ssl/ssl.crt
+RUN rm ./ssl.crt
 
 CMD ["apache2-foreground"]
 
 EXPOSE 80 8080
+EXPOSE 443 4433
