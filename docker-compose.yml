@@ -41,8 +41,8 @@ services:
       backend:
         ipv4_address: 192.168.0.4
     ports:
-      - "8080:80"
-      - "4433:443"
+      - "80:80"
+      - "443:443"
     depends_on:
       - database
     dns:
