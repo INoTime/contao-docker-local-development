@@ -33,7 +33,7 @@ services:
       - "8081:80"
 
   webserver:
-    build: .
+    image: inotime/contao
     container_name: webserver
     volumes:
       - docroot:/var/www/html/contao
