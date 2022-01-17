@@ -22,7 +22,7 @@ http://localhost:80<br/>
 
 <h3>After install</h3>
 After successfully installed Contao you can access the Contao Backend via 
-https://localhost:443/app.php/contao or http://localhost:80/app.php/contao
+https://localhost:443/contao or http://localhost:80/contao
 
 <h3>Access the Contao root directory</h3>
 On Windows machines, you can access the Contao root directory from
