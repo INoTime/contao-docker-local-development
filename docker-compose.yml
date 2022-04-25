@@ -39,6 +39,7 @@ services:
       - ./contao/files:/var/www/html/contao/files
       - ./contao/settings:/var/www/html/contao/settings
       - ./contao/templates:/var/www/html/contao/templates
+      - ./contao/src:/var/www/html/contao/src
       - docroot:/var/www/html/contao
     networks:
       backend:
