@@ -33,7 +33,7 @@ services:
       - "8081:80"
 
   webserver:
-    image: inotime/contao:v1.1
+    image: inotime/contao:v1.2
     container_name: webserver
     volumes:
       - ./contao/files:/var/www/html/contao/files
