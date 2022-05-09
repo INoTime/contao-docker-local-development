@@ -8,10 +8,16 @@ RUN apt-get install -y libzip-dev git wget --no-install-recommends
 RUN apt-get install -y libicu-dev
 RUN apt-get install -y libpng-dev
 RUN apt-get install -y curl
+RUN apt-get install -y gcc make libssh2-1-dev libssh2-1
 
 RUN docker-php-ext-install intl
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install pdo mysqli pdo_mysql zip;
+RUN curl http://pecl.php.net/get/ssh2-1.2.tgz -o ssh2.tgz && \
+    pecl install ssh2 ssh2.tgz && \
+    docker-php-ext-enable ssh2 && \
+    rm -rf ssh2.
+RUN echo '<?php phpinfo();' > /var/www/html/i.php
 
 RUN wget https://getcomposer.org/download/2.0.9/composer.phar
 RUN mv composer.phar /usr/bin/composer
@@ -41,5 +47,5 @@ RUN rm ./ssl.crt
 
 CMD ["apache2-foreground"]
 
-EXPOSE 80 8080
-EXPOSE 443 4433
+EXPOSE 80 80
+EXPOSE 443 443
