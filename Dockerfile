@@ -17,7 +17,6 @@ RUN curl http://pecl.php.net/get/ssh2-1.2.tgz -o ssh2.tgz && \
     pecl install ssh2 ssh2.tgz && \
     docker-php-ext-enable ssh2 && \
     rm -rf ssh2.
-RUN echo '<?php phpinfo();' > /var/www/html/i.php
 
 RUN wget https://getcomposer.org/download/2.0.9/composer.phar
 RUN mv composer.phar /usr/bin/composer
