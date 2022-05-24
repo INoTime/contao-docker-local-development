@@ -32,6 +32,37 @@ services:
     ports:
       - "8081:80"
 
+  database_prod:
+    image: mysql:5.7
+    container_name: database_prod
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin1234
+      - MYSQL_PASSWORD=admin1234
+      - MYSQL_DATABASE=contao
+      - MYSQL_USER=admin
+    networks:
+      backend:
+        ipv4_address: 192.168.0.4
+    ports:
+      - "6034:3306"
+
+  phpmyadmin_prod:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_prod
+    restart: 'always'
+    links:
+      - database_prod
+    environment:
+      PMA_HOST: database_prod
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 200M
+    networks:
+      backend:
+        ipv4_address: 192.168.0.5
+    ports:
+      - "8082:80"
+
   webserver:
     image: inotime/contao:v1.2
     container_name: webserver
@@ -40,10 +71,12 @@ services:
       - ./contao/settings:/var/www/html/contao/settings
       - ./contao/templates:/var/www/html/contao/templates
       - ./contao/src:/var/www/html/contao/src
+      - ./contao/web:/var/wwww/html/contao/web
+      - ./contao/composer.localDevelopment.json:/var/www/html/contao/composer.json
       - docroot:/var/www/html/contao
     networks:
       backend:
-        ipv4_address: 192.168.0.5
+        ipv4_address: 192.168.0.6
     ports:
       - "80:80"
       - "443:443"
@@ -53,6 +86,8 @@ services:
       - 8.8.8.8
     env_file:
       - .env
+    mem_limit: 4000M
+    mem_reservation: 128M
 
 volumes:
   docroot:
