@@ -44,7 +44,7 @@ RUN rm ./ssl.key
 RUN cp ./ssl.crt /etc/apache2/ssl/ssl.crt
 RUN rm ./ssl.crt
 
-CMD ["apache2-foreground"]
+CMD ["apachectl", "-DFOREGROUND"]
 
 EXPOSE 80 80
 EXPOSE 443 443
